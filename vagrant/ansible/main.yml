@@ -1,0 +1,12 @@
+---
+- name: Deploy Stack
+  hosts: all
+  become: true
+  pre_tasks:
+    - name: 'Update'
+      raw: apt update
+  roles:
+    - influxdb
+    - telegraf
+    - apache
+    #- grafana

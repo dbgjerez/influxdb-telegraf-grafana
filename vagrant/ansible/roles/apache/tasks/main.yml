@@ -1,0 +1,9 @@
+---
+- name: Install Apache2
+  apt: name=apache2 state=latest
+
+- name: Install module mod_status
+  apache2_module: name=rewrite state=present
+
+- name: Restart Apache2 service
+  service: name=apache2 state=restarted

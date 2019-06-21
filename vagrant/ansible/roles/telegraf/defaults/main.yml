@@ -1,0 +1,1 @@
+telegraf_conf_file_apache: "/etc/telegraf/telegraf.d/apache.conf"

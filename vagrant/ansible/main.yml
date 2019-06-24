@@ -9,4 +9,4 @@
     - influxdb
     - telegraf
     - apache
-    #- grafana
+    - grafana

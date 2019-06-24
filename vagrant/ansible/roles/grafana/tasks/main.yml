@@ -8,7 +8,33 @@
   apt_repository: repo='deb https://packages.grafana.com/oss/deb stable main' state=present
 
 - name: Install Grafana packages
-  apt: name=grafana state=present
+  apt:
+    name: grafana
+    state: present
+
+- name: Create influxdb datasource
+  grafana_datasource:
+    name: "influxdb"
+    grafana_url: "http://localhost:3000"
+    grafana_user: "admin"
+    grafana_password: "admin"
+    ds_type: "influxdb"
+    ds_url: "http://localhost:8086"
+    database: "telegraf"
+    time_interval: ">10s"
+
+- name: Copy dashboard definition
+  copy:
+    src: ../dashboards/main.yml
+    dest: /etc/grafana/provisioning/dashboards/
+
+- name: Copy Apache Dashboard
+  copy:
+    src: ../dashboards/apache.json
+    dest: /etc/grafana/provisioning/dashboards/
 
 - name: Start the Grafana service
-  service: name=grafana state=restarted
+  service:
+    name: grafana-server
+    state: restarted
+
